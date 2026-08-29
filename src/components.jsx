@@ -280,12 +280,12 @@ export function AuthModal({ mode, plan, close }) {
               </div>
               <form onSubmit={(event) => { event.preventDefault(); setComplete(true); }}>
                 <div className="form-control">
-                  <label htmlFor="nova-email">Email address</label>
-                  <span className="field"><Mail size={17} /><input id="nova-email" type="email" required placeholder="you@studio.com" autoComplete="email" /></span>
+                  <label htmlFor="avon-email">Email address</label>
+                  <span className="field"><Mail size={17} /><input id="avon-email" type="email" required placeholder="you@studio.com" autoComplete="email" /></span>
                 </div>
                 <div className="form-control">
-                  <label htmlFor="nova-password">Password</label>
-                  <span className="field"><LockKeyhole size={17} /><input id="nova-password" type={showPassword ? "text" : "password"} required minLength={6} placeholder="At least 6 characters" autoComplete={kind === "login" ? "current-password" : "new-password"} />
+                  <label htmlFor="avon-password">Password</label>
+                  <span className="field"><LockKeyhole size={17} /><input id="avon-password" type={showPassword ? "text" : "password"} required minLength={6} placeholder="At least 6 characters" autoComplete={kind === "login" ? "current-password" : "new-password"} />
                     <button type="button" aria-label={showPassword ? "Hide password" : "Show password"} onClick={() => setShowPassword((value) => !value)}>{showPassword ? <EyeOff size={17} /> : <Eye size={17} />}</button>
                   </span>
                 </div>
