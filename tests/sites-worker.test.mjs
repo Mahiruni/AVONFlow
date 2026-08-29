@@ -41,6 +41,43 @@ test("falls back to index.html for an unknown app route", async () => {
   assert.deepEqual(calls, ["/flow/step-two?source=share", "/index.html"]);
 });
 
+test("serves crawlable metadata for the AI filmmaking guide", async () => {
+  const source = `<!doctype html><html><head>
+    <meta name="description" content="AI filmmaking comparison" />
+    <meta property="og:title" content="Best AI Tools for Short Movie Making 2025–2026" />
+    <meta property="og:description" content="AI filmmaking comparison" />
+    <meta property="og:type" content="article" />
+    <meta name="twitter:title" content="Best AI Tools for Short Movie Making 2025–2026" />
+    <meta name="twitter:description" content="AI filmmaking comparison" />
+    <link rel="canonical" href="https://avonflow.vercel.app/blog/best-ai-tools-for-short-movie-making-2025" />
+    <title>Best AI Tools for Short Movie Making 2025–2026</title></head><body>app</body></html>`;
+  const response = await worker.fetch(new Request("https://avonflow.test/blog/best-ai-tools-for-short-movie-making-2025", {
+    headers: { accept: "text/html" },
+  }), {
+    ASSETS: {
+      fetch: async (request) => new Response(new URL(request.url).pathname === "/guide.html" ? source : "missing", {
+        status: new URL(request.url).pathname === "/guide.html" ? 200 : 404,
+      }),
+    },
+  });
+
+  const html = await response.text();
+  assert.equal(response.status, 200);
+  assert.match(html, /Best AI Tools for Short Movie Making 2025–2026/);
+  assert.match(html, /property="og:type" content="article"/);
+  assert.match(html, /rel="canonical" href="https:\/\/avonflow\.vercel\.app\/blog\/best-ai-tools-for-short-movie-making-2025"/);
+});
+
+test("serves robots and sitemap discovery files", async () => {
+  const env = { ASSETS: { fetch: async () => new Response("unused", { status: 404 }) } };
+  const robots = await worker.fetch(new Request("https://avonflow.test/robots.txt"), env);
+  const sitemap = await worker.fetch(new Request("https://avonflow.test/sitemap.xml"), env);
+
+  assert.match(await robots.text(), /Sitemap: https:\/\/avonflow\.test\/sitemap\.xml/);
+  assert.match(await sitemap.text(), /best-ai-tools-for-short-movie-making-2025/);
+  assert.equal(sitemap.headers.get("content-type"), "application/xml; charset=utf-8");
+});
+
 test("does not turn missing API or write requests into the app shell", async () => {
   for (const request of [
     new Request("https://example.test/api/missing", { headers: { accept: "application/json" } }),

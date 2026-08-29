@@ -68,6 +68,7 @@ const navItems = [
   ["Home", "/"],
   ["About", "/about"],
   ["Pricing", "/pricing"],
+  ["AI Guide", "/blog/best-ai-tools-for-short-movie-making-2025"],
   ["Extension", "/#extension"],
   ["Earn Money", "/earn"],
 ];
@@ -84,6 +85,7 @@ export function Navbar({ path, openAuth }) {
   const activeFor = (href) => {
     if (href === "/") return path === "/";
     if (href === "/#extension") return false;
+    if (href.startsWith("/blog/")) return path.startsWith("/blog/");
     return path === href;
   };
 
@@ -278,12 +280,12 @@ export function AuthModal({ mode, plan, close }) {
               </div>
               <form onSubmit={(event) => { event.preventDefault(); setComplete(true); }}>
                 <div className="form-control">
-                  <label htmlFor="avon-email">Email address</label>
-                  <span className="field"><Mail size={17} /><input id="avon-email" type="email" required placeholder="you@studio.com" autoComplete="email" /></span>
+                  <label htmlFor="nova-email">Email address</label>
+                  <span className="field"><Mail size={17} /><input id="nova-email" type="email" required placeholder="you@studio.com" autoComplete="email" /></span>
                 </div>
                 <div className="form-control">
-                  <label htmlFor="avon-password">Password</label>
-                  <span className="field"><LockKeyhole size={17} /><input id="avon-password" type={showPassword ? "text" : "password"} required minLength={6} placeholder="At least 6 characters" autoComplete={kind === "login" ? "current-password" : "new-password"} />
+                  <label htmlFor="nova-password">Password</label>
+                  <span className="field"><LockKeyhole size={17} /><input id="nova-password" type={showPassword ? "text" : "password"} required minLength={6} placeholder="At least 6 characters" autoComplete={kind === "login" ? "current-password" : "new-password"} />
                     <button type="button" aria-label={showPassword ? "Hide password" : "Show password"} onClick={() => setShowPassword((value) => !value)}>{showPassword ? <EyeOff size={17} /> : <Eye size={17} />}</button>
                   </span>
                 </div>
@@ -360,6 +362,7 @@ export function Footer({ openAuth }) {
         <nav aria-label="Footer navigation">
           <SiteLink to="/about">About</SiteLink>
           <SiteLink to="/pricing">Pricing</SiteLink>
+          <SiteLink to="/blog/best-ai-tools-for-short-movie-making-2025">AI Filmmaking Guide</SiteLink>
           <SiteLink to="/earn">Earn Money</SiteLink>
           <button onClick={() => document.querySelector(".chat-launcher")?.click()}>Support</button>
           <button onClick={() => openAuth("login")}>Login</button>

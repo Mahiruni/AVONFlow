@@ -1,5 +1,6 @@
 import {
   ArrowRight,
+  BookOpen,
   Bot,
   Camera,
   Check,
@@ -249,6 +250,18 @@ export function Home({ openAuth }) {
               </article>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section className="guide-promo">
+        <div className="container guide-promo__inner" data-reveal>
+          <span className="guide-promo__icon"><BookOpen size={25} /></span>
+          <div>
+            <small>AVONFLOW CREATOR INTELLIGENCE</small>
+            <h2>Best AI tools for short movie making.</h2>
+            <p>Compare Veo 3.1, Runway, Kling, ChatGPT and Gemini—then follow the complete script-to-screen workflow.</p>
+          </div>
+          <ButtonLink to="/blog/best-ai-tools-for-short-movie-making-2025" variant="outline">Read the 2026 guide</ButtonLink>
         </div>
       </section>
 

@@ -5,6 +5,10 @@
   "outputDirectory": "dist/client",
   "rewrites": [
     {
+      "source": "/blog/best-ai-tools-for-short-movie-making-2025",
+      "destination": "/guide.html"
+    },
+    {
       "source": "/(.*)",
       "destination": "/index.html"
     }
